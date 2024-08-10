@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "vocabulary"
+version = "0.1.0"
+description = ""
+authors = ["Benedict Abub <fkhurkhd2123dfs@tutamail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+customtkinter = "^5.2.2"
+openpyxl = "^3.1.5"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
