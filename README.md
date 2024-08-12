@@ -1,5 +1,4 @@
-# Vocabulary 
-### (New words learning method)
+# Vocabulary (Foreign words learning method)
 
 This README describes not only the program, but whole method,
 which I have developed for myself and use almost every day.  
