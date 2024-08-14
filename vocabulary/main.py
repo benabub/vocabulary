@@ -571,7 +571,7 @@ def another_word():
     progress_bar.set(words_done_qty_intvar.get() / words_qty_intvar.get())
     percent_intvar.set(round((words_done_qty_intvar.get() / words_qty_intvar.get()) * 100))
     label_percents.configure(text=f"{percent_intvar.get()} %")
-    label_words_qty.configure(text=f"{words_done_qty_intvar.get() + 1} из {words_qty_intvar.get()}")
+    label_words_qty.configure(text=f"{words_done_qty_intvar.get() + 1} out of {words_qty_intvar.get()}")
     label_translation.configure(text='--->> check (click, DOWN, \'S\') <<---', text_color=GREY_DARK)
     label_transcription.configure(text='')
     label_translation.focus_set()  # focus for keyboard control
