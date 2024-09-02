@@ -391,9 +391,9 @@ def check():
     """
     label_translation.configure(text_color=FONT_DARK)
     label_translation.configure(
-        text=sheet.cell(column=3, row=rows_mixed_list[words_done_qty_intvar.get()]).value)
+        text=str(sheet.cell(column=3, row=rows_mixed_list[words_done_qty_intvar.get()]).value).strip())
     label_transcription.configure(
-        text=sheet.cell(column=2, row=rows_mixed_list[words_done_qty_intvar.get()]).value)
+        text=str(sheet.cell(column=2, row=rows_mixed_list[words_done_qty_intvar.get()]).value).strip())
     label_word.focus_set()  # focus for keyboard control
     check_mode_boolvar.set(False)
 
@@ -567,7 +567,7 @@ def switch_record_boolvar():
 
 def another_word():
     label_word.configure(
-        text=sheet.cell(column=1, row=rows_mixed_list[words_done_qty_intvar.get()]).value)
+        text=str(sheet.cell(column=1, row=rows_mixed_list[words_done_qty_intvar.get()]).value).strip())
     progress_bar.set(words_done_qty_intvar.get() / words_qty_intvar.get())
     percent_intvar.set(round((words_done_qty_intvar.get() / words_qty_intvar.get()) * 100))
     label_percents.configure(text=f"{percent_intvar.get()} %")
