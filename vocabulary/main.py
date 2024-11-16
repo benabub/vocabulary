@@ -7,6 +7,8 @@ from pathlib import Path
 import customtkinter as ctk
 import openpyxl as xl
 
+# TODO: memory.txt delete bug
+
 # ---------- customtkinter init -----------------
 
 root = ctk.CTk()
