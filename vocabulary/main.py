@@ -46,7 +46,9 @@ rows_mixed_list = []  # cleared mixed list of rows numbers for test
 mistakes_list = []  # list of WorkBook's mistakes rows
 
 # GUI variables
-check_mode_boolvar = ctk.BooleanVar(value=True)  # variable for mouse events on frame_2 correct work
+
+# variable for mouse events on frame_2 correct work
+check_mode_boolvar = ctk.BooleanVar(value=True)
 
 # counter variables
 words_done_qty_intvar = ctk.IntVar(value=0)
@@ -181,7 +183,8 @@ def create_files_xlsx_list() -> list:
             files_xlsx_list_local.append(file.name)
 
     # Filter list from hidden and temporary files:
-    files_xlsx_list_local = [_ for _ in files_xlsx_list_local if _[0] not in ('~', '.', '$')]
+    files_xlsx_list_local = [
+        _ for _ in files_xlsx_list_local if _[0] not in ('~', '.', '$')]
 
     return files_xlsx_list_local
 
@@ -198,7 +201,8 @@ def assert_file_xlsx_read():
             f"{str(path_to_xlsx_mistakes.absolute())}/{file_name_strvar.get()}")
         mistakes_file_chosen_boolvar.set(True)
     else:
-        file_xlsx_read = xl.load_workbook(f"{str(path_to_xlsx.absolute())}/{file_name_strvar.get()}")
+        file_xlsx_read = xl.load_workbook(
+            f"{str(path_to_xlsx.absolute())}/{file_name_strvar.get()}")
         mistakes_file_chosen_boolvar.set(False)
 
 
@@ -272,7 +276,8 @@ def start_end_combos_fill():
         else:
             combo_start.configure(values=start_end_list[:-1])
             combo_end.configure(values=start_end_list[1:])
-            combo_start.set(start_end_list[-2])  # penultimate value of the list
+            # penultimate value of the list
+            combo_start.set(start_end_list[-2])
             combo_end.set(start_end_list[-1])  # last value of the list
 
         start_intvar.set(int(combo_start.get()))
@@ -288,7 +293,8 @@ def words_qty_calc():
     elif start_intvar.get() == end_intvar.get() != 2:
         words_qty_intvar.set(0)
     elif start_intvar.get() == 2 or end_intvar.get() % step_intvar.get() != 0:
-        words_qty_intvar.set(int((end_intvar.get() - start_intvar.get()) / 2 + 1))
+        words_qty_intvar.set(
+            int((end_intvar.get() - start_intvar.get()) / 2 + 1))
     else:
         words_qty_intvar.set(int((end_intvar.get() - start_intvar.get()) / 2))
 
@@ -416,13 +422,17 @@ def record_xlsx():
     # writing cells to sheet_mistakes_book:
     row_counter = 2
     for row in mistakes_list:
-        sheet_mistakes_book.cell(row=row_counter, column=1).value = sheet.cell(row=row, column=1).value
-        sheet_mistakes_book.cell(row=row_counter, column=2).value = sheet.cell(row=row, column=2).value
-        sheet_mistakes_book.cell(row=row_counter, column=3).value = sheet.cell(row=row, column=3).value
+        sheet_mistakes_book.cell(row=row_counter, column=1).value = sheet.cell(
+            row=row, column=1).value
+        sheet_mistakes_book.cell(row=row_counter, column=2).value = sheet.cell(
+            row=row, column=2).value
+        sheet_mistakes_book.cell(row=row_counter, column=3).value = sheet.cell(
+            row=row, column=3).value
         row_counter += 2
 
     # saving workbook_mistakes to path_to_xlsx_mistakes:
-    workbook_mistakes.save(Path(path_to_xlsx_mistakes) / mistakes_xlsx_name_strvar.get())
+    workbook_mistakes.save(Path(path_to_xlsx_mistakes) /
+                           mistakes_xlsx_name_strvar.get())
 
 
 def change_2_win():
@@ -450,7 +460,8 @@ def change_2_obvious_record():
         text=f"RESULT: {round((words_right_intvar.get() / words_qty_intvar.get()) * 100)} %")
     label_result_info_obvious.configure(
         text=f"The rest of words:\n{words_wrong_intvar.get()} out of {words_qty_intvar.get()}")
-    label_result_info_plus_obvious.configure(text=f"Saved: {mistakes_xlsx_name_strvar.get()}")
+    label_result_info_plus_obvious.configure(
+        text=f"Saved: {mistakes_xlsx_name_strvar.get()}")
     label_result_info_obvious.place(relx=0.5, rely=0.4, anchor='c')
     label_result_info_plus_obvious.place(relx=0.5, rely=0.75, anchor='c')
     frame_2.place_forget()
@@ -514,7 +525,8 @@ def defaults():
     start_intvar.set(0)
     end_intvar.set(0)
     rows_mixed_list = []  # cleared mixed list of row's numbers for exam
-    mistakes_list = []  # list of WorkBook' rows, words from which haven't been passed.
+    # list of WorkBook' rows, words from which haven't been passed.
+    mistakes_list = []
 
     # counter variables
     words_done_qty_intvar.set(0)
@@ -571,10 +583,13 @@ def another_word():
     label_word.configure(
         text=str(sheet.cell(column=1, row=rows_mixed_list[words_done_qty_intvar.get()]).value).strip())
     progress_bar.set(words_done_qty_intvar.get() / words_qty_intvar.get())
-    percent_intvar.set(round((words_done_qty_intvar.get() / words_qty_intvar.get()) * 100))
+    percent_intvar.set(
+        round((words_done_qty_intvar.get() / words_qty_intvar.get()) * 100))
     label_percents.configure(text=f"{percent_intvar.get()} %")
-    label_words_qty.configure(text=f"{words_done_qty_intvar.get() + 1} out of {words_qty_intvar.get()}")
-    label_translation.configure(text='--->> check (click, DOWN, \'S\') <<---', text_color=GREY_DARK)
+    label_words_qty.configure(
+        text=f"{words_done_qty_intvar.get() + 1} out of {words_qty_intvar.get()}")
+    label_translation.configure(
+        text='--->> check (click, DOWN, \'S\') <<---', text_color=GREY_DARK)
     label_transcription.configure(text='')
     label_translation.focus_set()  # focus for keyboard control
 
@@ -987,10 +1002,12 @@ label_know_number = ctk.CTkLabel(frame_2, text=str(words_right_intvar.get()),
 label_know_number.place(relx=.005, rely=.149, relwidth=.492, relheight=.07)
 
 label_dont_know_number = ctk.CTkLabel(frame_2, text=str(words_wrong_intvar.get()),
-                                      font=('Calibri', int(round(scope_base * 1.2))),
+                                      font=('Calibri', int(
+                                          round(scope_base * 1.2))),
                                       bg_color=GREY,
                                       text_color=FONT_DARK, anchor='center', )
-label_dont_know_number.place(relx=.503, rely=.149, relwidth=.492, relheight=.07)
+label_dont_know_number.place(
+    relx=.503, rely=.149, relwidth=.492, relheight=.07)
 
 # ----------- row 4 -----------------
 
@@ -1054,22 +1071,26 @@ frame_3_obvious = SlidePanel()
 # ----------- layout Top Bar -----------------
 
 label_result_obvious = ctk.CTkLabel(frame_3_obvious,
-                                    font=('Calibri', int(round(scope_base * 1.33)), 'bold'),
+                                    font=('Calibri', int(
+                                        round(scope_base * 1.33)), 'bold'),
                                     anchor='center', text_color=FONT_LIGHT, bg_color=GREY_DARK, )
 label_result_obvious.place(relx=.005, rely=.005, relheight=.175, relwidth=.99)
 
 # ----------- layout Middle Bar -----------------
 
 canvas_middle_bar_obvious = ctk.CTkCanvas(frame_3_obvious, bg=GREY_LIGHT, )
-canvas_middle_bar_obvious.place(relx=.005, rely=.188, relheight=.555, relwidth=.99)
+canvas_middle_bar_obvious.place(
+    relx=.005, rely=.188, relheight=.555, relwidth=.99)
 
 label_result_info_obvious = ctk.CTkLabel(canvas_middle_bar_obvious,
-                                         font=('Calibri', scope_base * 2, 'bold'),
+                                         font=(
+                                             'Calibri', scope_base * 2, 'bold'),
                                          anchor='center', text_color=FONT_BROWN,
                                          bg_color=GREY_LIGHT)
 
 label_result_info_plus_obvious = ctk.CTkLabel(canvas_middle_bar_obvious,
-                                              font=('Calibri', int(round(scope_base * 1.2)),),
+                                              font=('Calibri', int(
+                                                  round(scope_base * 1.2)),),
                                               anchor='center', text_color=FONT_BROWN,
                                               bg_color=GREY_LIGHT, wraplength=wraplength)
 
