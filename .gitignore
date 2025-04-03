@@ -1,6 +1,8 @@
 ### main template
 docs/source
 
+poetry.lock
+
 empty.py
 
 # From https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore
