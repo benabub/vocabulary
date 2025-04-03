@@ -1,74 +1,71 @@
-# Vocabulary (Foreign words learning method)
+# Vocabulary (Foreign Words Learning Method)
 
-- This README describes not only the program, but whole method,
-which I have developed for myself and use almost every day.
-- Do You ever heard about the cards method of learning words? 
-I hope my interpretation of this will help to save some time 
-and trees.
+- This README describes not only the program but the whole method, which I have developed for myself and use almost every day.
+- Have you ever heard of the flashcard method of learning words? I hope my interpretation will help save some time and trees.
 
-## How it works (briefly)
+## How It Works (Briefly)
 
-- At first, work with materials in the language you study (books, articles, 
-videos). Every word, which meaning or pronunciation You don't know 
-have to be written in the special workbook. It will be your own study 
-dictionary.
-- If you don't have such a dictionary yet don't worry: the 
-program can make a new one for you on the base of file template.xlsx.
-- Of course, You need some other application to work with workbooks 
-depending on your OS (Microsoft Office, LibreOffice Calc etc.). 
-But I hope, it will not be a big problem.
-- When you have array of new words in your dictionary big enough to start learn it, You can finally use that program.
-- It will make You to remember all of new words deeply without any big efforts, suffering or drill from your side.
-- Approximately 15 minutes of every day using that program can increase your vocabulary on several thousands of new words. And using foreign language will become for You a simple routine, not a hard challenge.
+- First, work with materials in your target language (books, articles, videos). Write down every word whose meaning or pronunciation you don't know in a special workbook. This will become your personal study dictionary.
+
+- If you don't have such a dictionary yet, don't worry: the program can generate one for you based on the template.xlsx file.
+
+- You'll need a spreadsheet application compatible with your OS (Microsoft Office, LibreOffice Calc, etc.), but this shouldn't be problematic.
+
+- Once you've collected enough words, you can start using this program.
+
+- It helps you memorize new vocabulary deeply with minimal effort and no tedious drilling.
+
+- Just 15 minutes of daily practice can expand your vocabulary by several thousand words, transforming foreign language use from a challenge into routine.
+
 <!-- Let's look at this process in detail. -->
 
 ## Installation
 
 ### Requirements:
 
-- python >= 3.10
-- [poetry](https://python-poetry.org/)
-- Tkinter (Linux issue, Windows, macOS - working by default)
+- Python >= 3.10
+- [Poetry](https://python-poetry.org/)
+- Tkinter (pre-installed on Windows/macOS; requires manual installation on Linux)
 
-**Tkinter issue solving:**
+**Linux Installation:**
 
-For Arch Linux:
+Arch Linux:
 ```bash
 sudo pacman -S tk
 ```
 
-For Debian/Ubuntu:
+Debian/Ubuntu:
 ```bash
-sudo apt-get install python3-tk
+sudo apt install python3-tk
 ```
 
-### Install Vocabulary
+### Installation Steps:
 
-1. Open the directory in terminal, which you choose as a parent folder for this program.
+1. Open your terminal in the desired parent directory
 
-2. Clone the repo:
+2. Clone the repository:
     ```bash
     git clone https://github.com/benabub/vocabulary.git
     ```
 
-3. Go in:
+3. Enter the project directory:
     ```bash
     cd vocabulary/vocabulary
     ```
 
-4. Install env:
+4. Set up the environment:
     ```bash
     poetry install
     ```
 
-## How to run
+## Usage
 
-1. Make shure, that you are in right directory in terminal:
+1. Navigate to the project:
     ```bash
     cd your_parent_dir/vocabulary/vocabulary
     ```
 
-2. Run the program:
+2. Launch the application:
     ```bash
     poetry run python main.py
     ```
