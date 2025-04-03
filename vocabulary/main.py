@@ -144,7 +144,7 @@ def memory_setting():
 def assert_paths():
     global path_to_xlsx, path_to_xlsx_mistakes
     path_to_xlsx = Path(path_strvar.get())
-    path_to_xlsx_mistakes = path_to_xlsx / 'Mistakes'
+    path_to_xlsx_mistakes = path_to_xlsx / 'mistakes'
 
 
 def memory_file_import() -> dict:

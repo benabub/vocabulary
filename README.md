@@ -3,7 +3,7 @@
 This README describes not only the program, but whole method,
 which I have developed for myself and use almost every day.  
 Do You ever heard about the cards method of learning words? 
-I hope my interpretation of this method will help to save some time 
+I hope my interpretation of this will help to save some time 
 and trees.  
 
 ## How it works (briefly)
@@ -27,30 +27,40 @@ not a hard challenge. Let's look at this process in detail.
 
 ##### Requirements:
 
-python >= 3.10
+- python >= 3.10
+- [poetry](https://python-poetry.org/)
+- Tkinter (Linux issue, Windows, macOS - working by default)
 
-[poetry](https://python-poetry.org/)
+Tkinter issue solving:
+
+For Arch Linux:
+```bash
+sudo pacman -S tk
+```
+
+For Arch Linux:
+```bash
+sudo apt-get install python3-tk
+```
 
 ##### Install Vocabulary
 
 Open the directory in terminal, which you choose as a parent folder for this program.
 
 Clone the repo:
-
 ```bash
 git clone https://github.com/benabub/vocabulary.git
 ```
 
 Go in:
-
 ```bash
-cd vocabulary/vocabulary     
+cd vocabulary/vocabulary
 ```
 
 Install env:
 
 ```bash
-poetry install  
+poetry install
 ```
 
 ## How to run
@@ -58,11 +68,11 @@ poetry install
 Make shure, that you are in right directory in terminal:
 
 ```bash
-cd your_parent_dir/vocabulary/vocabulary 
+cd your_parent_dir/vocabulary/vocabulary
 ```
 
 Run the program:
 
 ```bash
-poetry run python main.py 
+poetry run python main.py
 ```
