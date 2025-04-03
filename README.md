@@ -30,48 +30,45 @@ But I hope, it will not be a big problem.
 - [poetry](https://python-poetry.org/)
 - Tkinter (Linux issue, Windows, macOS - working by default)
 
-Tkinter issue solving:
+**Tkinter issue solving:**
 
 For Arch Linux:
 ```bash
 sudo pacman -S tk
 ```
 
-For Arch Linux:
+For Debian/Ubuntu:
 ```bash
 sudo apt-get install python3-tk
 ```
 
 ### Install Vocabulary
 
-Open the directory in terminal, which you choose as a parent folder for this program.
+1. Open the directory in terminal, which you choose as a parent folder for this program.
 
-Clone the repo:
-```bash
-git clone https://github.com/benabub/vocabulary.git
-```
+2. Clone the repo:
+    ```bash
+    git clone https://github.com/benabub/vocabulary.git
+    ```
 
-Go in:
-```bash
-cd vocabulary/vocabulary
-```
+3. Go in:
+    ```bash
+    cd vocabulary/vocabulary
+    ```
 
-Install env:
-
-```bash
-poetry install
-```
+4. Install env:
+    ```bash
+    poetry install
+    ```
 
 ## How to run
 
-Make shure, that you are in right directory in terminal:
+1. Make shure, that you are in right directory in terminal:
+    ```bash
+    cd your_parent_dir/vocabulary/vocabulary
+    ```
 
-```bash
-cd your_parent_dir/vocabulary/vocabulary
-```
-
-Run the program:
-
-```bash
-poetry run python main.py
-```
+2. Run the program:
+    ```bash
+    poetry run python main.py
+    ```
