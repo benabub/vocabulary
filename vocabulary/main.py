@@ -1,9 +1,11 @@
 import re
+import os
 import secrets
 import shutil
 from shutil import copyfile
 from pathlib import Path
 
+import tkinter
 import customtkinter as ctk
 import openpyxl as xl
 
@@ -657,6 +659,18 @@ display_height = root.winfo_screenheight()
 left = int((display_width / 2) - (root_width / 2))
 top = int((display_height / 2) - (root_height / 2))
 root.geometry(f'{root_width}x{root_height}+{left}+{top}')
+
+is_wayland = ("WAYLAND_DISPLAY" in os.environ or
+              "HYPRLAND_INSTANCE_SIGNATURE" in os.environ)
+
+if is_wayland:
+    try:
+        root.attributes('-type', 'dialog')
+    # Specifically catch TclError which is raised by Tkinter
+    except tkinter.TclError as e:
+        print(f"Warning: Could not set window attributes: {e}")
+    root.resizable(False, False)
+    root.after(100, lambda: root.wm_attributes('-type', 'utility'))
 
 # most popular scope size (others sizes will be got from it by a coefficient)
 scope_base = int(round(root_height ** .43 + 2))
