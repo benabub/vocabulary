@@ -612,7 +612,7 @@ def another_word():
     label_percents.configure(text=f"{percent_intvar.get()} %")
     label_words_qty.configure(
         text=f"{words_done_qty_intvar.get() + 1} out of "
-             f"{words_qty_intvar.get()}")
+        f"{words_qty_intvar.get()}")
     label_translation.configure(
         text='--->> check (click, DOWN, \'S\') <<---', text_color=GREY_DARK)
     label_transcription.configure(text='')
@@ -627,10 +627,12 @@ def start_exam():
     match = re.search('MSTK', file_name_strvar.get())  # finding mistakes files
     if match:
         mistakes_xlsx_name_strvar.set(
-            f"{file_name_strvar.get()[:-5]}-({start_intvar.get()}-{end_intvar.get()}).xlsx")
+            f"{file_name_strvar.get()[:-5]}-"
+            f"({start_intvar.get()}-{end_intvar.get()}).xlsx")
     else:
         mistakes_xlsx_name_strvar.set(
-            f"MSTK_{file_name_strvar.get()[:-5]}-({start_intvar.get()}-{end_intvar.get()}).xlsx")
+            f"MSTK_{file_name_strvar.get()[:-5]}-"
+            f"({start_intvar.get()}-{end_intvar.get()}).xlsx")
     # list of selected range's rows:
     ordered_list = []
     start_loop = start_intvar.get()
@@ -703,7 +705,7 @@ wraplength = int(round(root_width * .95))
 
 
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#      Class Slide Panel (modernization of CTkFrame class)
+#      Class Slide Panel (customization of CTkFrame class)
 # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
@@ -712,9 +714,11 @@ class SlidePanel(ctk.CTkFrame):
     Modernization of ctk frame class (animated appearance)
     """
 
-    def __init__(self, direction_down=True):  # Class arg, it's need to make class object
+    def __init__(self, direction_down=True):  # Class args to make class object
         # NB: all keys defaults should be exactly in super().__init__(..):
-        super().__init__(master=root, width=int(root_width), height=int(root_height),
+        super().__init__(master=root,
+                         width=int(root_width),
+                         height=int(root_height),
                          fg_color=FRAME_BG,
                          corner_radius=0)  # Args, inherited from parent class
         self.y_fly = None  # PyCharm advice
@@ -757,15 +761,17 @@ frame_1 = SlidePanel()
 
 # This is not the highest widget positionally,
 # but it's coded first to make it №1 in focus order.
-btn_start = ctk.CTkButton(frame_1,
-                          font=('Calibri', scope_base * 2, 'bold'),
-                          text="Check Your Settings",
-                          text_color=GREY_DARK,
-                          corner_radius=0,
-                          fg_color=YELLOW_BTN,  # rest / active button's color
-                          hover_color=YELLOW_BTN_HOVER,  # hover button color
-                          command=None,
-                          hover=False)
+btn_start = ctk.CTkButton(
+    frame_1,
+    font=('Calibri', scope_base * 2, 'bold'),
+    text="Check Your Settings",
+    text_color=GREY_DARK,
+    corner_radius=0,
+    fg_color=YELLOW_BTN,  # rest / active button's color
+    hover_color=YELLOW_BTN_HOVER,  # hover button color
+    command=None,
+    hover=False
+)
 
 btn_start.bind('<space>', lambda e: start_exam())
 btn_start.place(relx=.005, rely=.75, relheight=.245, relwidth=.99)
@@ -777,97 +783,114 @@ canvas_file.place(relx=.005, rely=.005, relheight=.489, relwidth=.692)
 
 # ----------- Frame_path  -----------------
 
-frame_path = ctk.CTkFrame(canvas_file,
-                          fg_color=GREY,
-                          )
+frame_path = ctk.CTkFrame(
+    canvas_file,
+    fg_color=GREY,
+)
 frame_path.place(relx=.05, rely=.08, relwidth=.9, relheight=.24)
 
-label_path = ctk.CTkLabel(frame_path, text="Path to your file's folder:",
-                          font=('Calibri', scope_base),
-                          fg_color=GREY,
-                          text_color=FONT_BROWN,
-                          )
+label_path = ctk.CTkLabel(
+    frame_path, text="Path to your file's folder:",
+    font=('Calibri', scope_base),
+    fg_color=GREY,
+    text_color=FONT_BROWN,
+)
 label_path.place(relx=.05, rely=.1, relwidth=.9, relheight=.4)
 
-btn_clear_entry = ctk.CTkButton(frame_path,
-                                text='CLEAR',
-                                font=('Calibri', scope_base, 'bold'),
-                                text_color=FONT_BROWN,
-                                fg_color=GREY_LIGHT,  # rest / active button's color
-                                hover_color=RED,  # hover button color
-                                command=clear_entry_path,
-                                )
+btn_clear_entry = ctk.CTkButton(
+    frame_path,
+    text='CLEAR',
+    font=('Calibri', scope_base, 'bold'),
+    text_color=FONT_BROWN,
+    # rest / active button's color:
+    fg_color=GREY_LIGHT,
+    # hover button color:
+    hover_color=RED,
+    command=clear_entry_path,
+)
 btn_clear_entry.place(relx=.02, rely=.1, relwidth=.2, relheight=.4)
 
-btn_path_pass = ctk.CTkButton(frame_path,
-                              text='PASS',
-                              font=('Calibri', scope_base, 'bold'),
-                              text_color=FONT_BROWN,
-                              fg_color=GREY_LIGHT,  # rest / active button's color
-                              hover_color=RED,  # hover button color
-                              command=pass_entry_path,
-                              )
+btn_path_pass = ctk.CTkButton(
+    frame_path,
+    text='PASS',
+    font=('Calibri', scope_base, 'bold'),
+    text_color=FONT_BROWN,
+    fg_color=GREY_LIGHT,
+    hover_color=RED,
+    command=pass_entry_path,
+)
 btn_path_pass.place(relx=.78, rely=.1, relwidth=.2, relheight=.4)
 
-entry_path = ctk.CTkEntry(frame_path, font=('Calibri', int(round(scope_base * .8))),
-                          border_color=GREY,
-                          justify='c',
-                          textvariable=path_strvar
-                          )
+entry_path = ctk.CTkEntry(
+    frame_path,
+    font=('Calibri', int(round(scope_base * .8))),
+    border_color=GREY,
+    justify='c',
+    textvariable=path_strvar
+)
 entry_path.place(relx=.02, rely=.53, relwidth=.96, relheight=.4)
 
 # ----------- Frame_file -----------------
 
-frame_file = ctk.CTkFrame(canvas_file,
-                          fg_color=GREY,
-                          )
+frame_file = ctk.CTkFrame(
+    canvas_file,
+    fg_color=GREY,
+)
 frame_file.place(relx=.05, rely=.39, relwidth=.9, relheight=.24)
 
-label_file = ctk.CTkLabel(frame_file, text="Choose file:", font=('Calibri', scope_base),
-                          fg_color=GREY,
-                          text_color=FONT_BROWN,
-                          )
+label_file = ctk.CTkLabel(
+    frame_file,
+    text="Choose file:",
+    font=('Calibri', scope_base),
+    fg_color=GREY,
+    text_color=FONT_BROWN,
+)
 label_file.pack(pady=5)
 
-combo_file = ctk.CTkComboBox(frame_file,
-                             font=('Calibri', scope_base),
-                             dropdown_font=('Calibri', scope_base),
-                             button_color=BROWN_BTN,
-                             button_hover_color=BROWN_BTN_HOVER,
-                             bg_color=GREY,
-                             border_color=GREY,
-                             justify='c',
-                             values=create_files_xlsx_list(),
-                             command=combo_file_choice,
-                             )
+combo_file = ctk.CTkComboBox(
+    frame_file,
+    font=('Calibri', scope_base),
+    dropdown_font=('Calibri', scope_base),
+    button_color=BROWN_BTN,
+    button_hover_color=BROWN_BTN_HOVER,
+    bg_color=GREY,
+    border_color=GREY,
+    justify='c',
+    values=create_files_xlsx_list(),
+    command=combo_file_choice,
+)
 
 combo_file.set(file_name_strvar.get())
 combo_file.pack(fill='both', padx=40)
 
 # ----------- Frame_sheet -----------------
 
-frame_sheet = ctk.CTkFrame(canvas_file,
-                           fg_color=GREY,
-                           )
+frame_sheet = ctk.CTkFrame(
+    canvas_file,
+    fg_color=GREY,
+)
 frame_sheet.place(relx=.05, rely=.7, relwidth=.9, relheight=.24)
 
-label_sheet = ctk.CTkLabel(frame_sheet, text="Choose sheet:",
-                           font=('Calibri', scope_base),
-                           fg_color=GREY,
-                           text_color=FONT_BROWN,
-                           )
+label_sheet = ctk.CTkLabel(
+    frame_sheet, text="Choose sheet:",
+    font=('Calibri', scope_base),
+    fg_color=GREY,
+    text_color=FONT_BROWN,
+)
 label_sheet.pack(pady=5)
 
-combo_sheet = ctk.CTkComboBox(frame_sheet,
-                              font=('Calibri', scope_base),
-                              dropdown_font=('Calibri', scope_base),
-                              button_color=BROWN_BTN, button_hover_color=BROWN_BTN_HOVER,
-                              bg_color=GREY,
-                              border_color=GREY,
-                              justify='c',
-                              values=sheets_list,
-                              command=combo_sheet_choice
-                              )
+combo_sheet = ctk.CTkComboBox(
+    frame_sheet,
+    font=('Calibri', scope_base),
+    dropdown_font=('Calibri', scope_base),
+    button_color=BROWN_BTN,
+    button_hover_color=BROWN_BTN_HOVER,
+    bg_color=GREY,
+    border_color=GREY,
+    justify='c',
+    values=sheets_list,
+    command=combo_sheet_choice
+)
 
 combo_sheet.set(sheet_name_strvar.get())
 combo_sheet.pack(fill='both', padx=40)
@@ -879,28 +902,36 @@ canvas_start_end.place(relx=.005, rely=.5, relheight=.244, relwidth=.692)
 
 # ----------- Frame_start -----------------
 
-frame_start = ctk.CTkFrame(canvas_start_end,
-                           fg_color=GREY,
-                           )
+frame_start = ctk.CTkFrame(
+    canvas_start_end,
+    fg_color=GREY,
+)
 frame_start.place(relx=.05, rely=.25, relwidth=.42, relheight=.5)
 
-label_start = ctk.CTkLabel(frame_start, text="Start:", font=('Calibri', scope_base), bg_color=GREY,
-                           text_color=FONT_BROWN, anchor='center', height=20,
-                           )
+label_start = ctk.CTkLabel(
+    frame_start,
+    text="Start:",
+    font=('Calibri', scope_base),
+    bg_color=GREY,
+    text_color=FONT_BROWN,
+    anchor='center',
+    height=20,
+)
 label_start.pack(pady=5)
 
-combo_start = ctk.CTkComboBox(frame_start,
-                              font=('Calibri', scope_base),
-                              dropdown_font=('Calibri', scope_base),
-                              button_color=BROWN_BTN,
-                              button_hover_color=BROWN_BTN_HOVER,
-                              bg_color=GREY,
-                              border_color=GREY,
-                              justify='c',
-                              command=combo_start_choice,
-                              # not to view default logo, when the file_name_strvar.get() == '':
-                              values=[]
-                              )
+combo_start = ctk.CTkComboBox(
+    frame_start,
+    font=('Calibri', scope_base),
+    dropdown_font=('Calibri', scope_base),
+    button_color=BROWN_BTN,
+    button_hover_color=BROWN_BTN_HOVER,
+    bg_color=GREY,
+    border_color=GREY,
+    justify='c',
+    command=combo_start_choice,
+    # not to view default logo, when the file_name_strvar.get() == '':
+    values=[]
+)
 
 combo_start.set('')  # empty field, when the file_name_strvar.get() == ''
 
@@ -908,47 +939,53 @@ combo_start.pack(fill='both', padx=10)
 
 # ----------- Frame_end -----------------
 
-frame_end = ctk.CTkFrame(canvas_start_end,
-                         fg_color=GREY,
-                         )
+frame_end = ctk.CTkFrame(
+    canvas_start_end,
+    fg_color=GREY,
+)
 frame_end.place(relx=.53, rely=.25, relwidth=.42, relheight=.48)
 
-label_end = ctk.CTkLabel(frame_end, text="End:", font=('Calibri', scope_base), bg_color=GREY,
-                         text_color=FONT_BROWN, anchor='center', height=20,
-                         )
+label_end = ctk.CTkLabel(
+    frame_end, text="End:",
+    font=('Calibri', scope_base), bg_color=GREY,
+    text_color=FONT_BROWN, anchor='center', height=20,
+)
 label_end.pack(pady=5)
 
-combo_end = ctk.CTkComboBox(frame_end,
-                            font=('Calibri', scope_base),
-                            dropdown_font=('Calibri', scope_base),
-                            button_color=BROWN_BTN,
-                            button_hover_color=BROWN_BTN_HOVER,
-                            bg_color=GREY,
-                            border_color=GREY,
-                            justify='c',
-                            command=combo_end_choice,
-                            # not to view default logo, when the file_name_strvar.get() == '':
-                            values=[]
-                            )
+combo_end = ctk.CTkComboBox(
+    frame_end,
+    font=('Calibri', scope_base),
+    dropdown_font=('Calibri', scope_base),
+    button_color=BROWN_BTN,
+    button_hover_color=BROWN_BTN_HOVER,
+    bg_color=GREY,
+    border_color=GREY,
+    justify='c',
+    command=combo_end_choice,
+    # not to view default logo,
+    # when the file_name_strvar.get() == '':
+    values=[]
+)
 
 combo_end.set('')  # empty field, when the file_name_strvar.get() == ''
 
 combo_end.pack(fill='both', padx=10)
 
-# ----------- layout Create template.xlsx ----------------------------------------------
+# ----------- layout Create template.xlsx ---------------------------------
 
 canvas_template = ctk.CTkCanvas(frame_1, bg=GREY_LIGHT, )
 canvas_template.place(relx=.7, rely=.005, relheight=.192, relwidth=0.295)
 
 # ----------- button create template.xlsx -----------------
 
-btn_template = ctk.CTkButton(canvas_template, text='CREATE NEW\ntemplate.xlsx',
-                             font=('Calibri', scope_base, 'bold'),
-                             text_color=FONT_BROWN,
-                             fg_color=GREY,  # rest / active button's color
-                             hover_color=RED,  # hover button color
-                             command=create_template_xlsx,
-                             )
+btn_template = ctk.CTkButton(
+    canvas_template, text='CREATE NEW\ntemplate.xlsx',
+    font=('Calibri', scope_base, 'bold'),
+    text_color=FONT_BROWN,
+    fg_color=GREY,  # rest / active button's color
+    hover_color=RED,  # hover button color
+    command=create_template_xlsx,
+)
 
 btn_template.place(relx=.1, rely=.2, relwidth=.8, relheight=.6)
 
@@ -959,14 +996,16 @@ canvas_switch.place(relx=.7, rely=.203, relheight=.291, relwidth=0.295)
 
 # ----------- Frame Record Switch -----------------
 
-btn_switch = ctk.CTkButton(canvas_switch,
-                           text="MISTAKES\nRECORDING\n<-OFF->",
-                           font=('Calibri', int(round(scope_base * 1.1)), 'bold'),
-                           text_color=FONT_BROWN,
-                           fg_color=GREY,  # rest / active button's color
-                           hover_color=RED,  # hover button color
-                           command=switch_record_boolvar,
-                           )
+btn_switch = ctk.CTkButton(
+    canvas_switch,
+    text="MISTAKES\nRECORDING\n<-OFF->",
+    font=('Calibri', int(round(scope_base * 1.1)),
+          'bold'),
+    text_color=FONT_BROWN,
+    fg_color=GREY,  # rest / active button's color
+    hover_color=RED,  # hover button color
+    command=switch_record_boolvar,
+)
 btn_switch.place(relx=.1, rely=.1, relwidth=.8, relheight=.8)
 
 # ----------- layout Step ----------------------------------------------
@@ -976,28 +1015,32 @@ canvas_step.place(relx=.7, rely=.5, relheight=.244, relwidth=0.295)
 
 # ----------- Frame Step choice -----------------
 
-frame_step = ctk.CTkFrame(canvas_step,
-                          fg_color=GREY,
-                          )
+frame_step = ctk.CTkFrame(
+    canvas_step,
+    fg_color=GREY,
+)
 frame_step.place(relx=.1, rely=.25, relwidth=.8, relheight=.5)
 
-label_step = ctk.CTkLabel(frame_step, text="STEP:", font=('Calibri', scope_base), bg_color=GREY,
-                          text_color=FONT_BROWN, anchor='center', height=20,
-                          )
+label_step = ctk.CTkLabel(
+    frame_step, text="STEP:",
+    font=('Calibri', scope_base), bg_color=GREY,
+    text_color=FONT_BROWN, anchor='center', height=20,
+)
 label_step.pack(pady=5)
 
-combo_step = ctk.CTkComboBox(frame_step,
-                             font=('Calibri', scope_base),
-                             dropdown_font=('Calibri', scope_base),
-                             button_color=BROWN_BTN,
-                             button_hover_color=BROWN_BTN_HOVER,
-                             bg_color=GREY,
-                             border_color=GREY,
-                             justify='c',
-                             command=combo_step_choice,
-                             values=['20', '60', '100', '200', '300',
-                                     '400', '600', '800', '1000', '2000']
-                             )
+combo_step = ctk.CTkComboBox(
+    frame_step,
+    font=('Calibri', scope_base),
+    dropdown_font=('Calibri', scope_base),
+    button_color=BROWN_BTN,
+    button_hover_color=BROWN_BTN_HOVER,
+    bg_color=GREY,
+    border_color=GREY,
+    justify='c',
+    command=combo_step_choice,
+    values=['20', '60', '100', '200', '300',
+            '400', '600', '800', '1000', '2000']
+)
 
 combo_step.set('200')
 
@@ -1012,45 +1055,67 @@ frame_2 = SlidePanel(direction_down=False)
 
 # ----------- row 1 -----------------
 
-label_words_qty = ctk.CTkLabel(frame_2, font=('Calibri', int(round(scope_base * 1.2))),
-                               bg_color=GREY, anchor='center', text_color=FONT_DARK, )
+label_words_qty = ctk.CTkLabel(
+    frame_2,
+    font=('Calibri', int(round(scope_base * 1.2))),
+    bg_color=GREY,
+    anchor='center',
+    text_color=FONT_DARK,
+)
 label_words_qty.place(relx=.005, rely=.005, relwidth=.658, relheight=.07)
 
-label_percents = ctk.CTkLabel(frame_2, bg_color=GREY,
-                              font=('Calibri', int(round(scope_base * 1.2))),
-                              text_color=FONT_DARK, anchor='center', )
+label_percents = ctk.CTkLabel(
+    frame_2, bg_color=GREY,
+    font=('Calibri', int(round(scope_base * 1.2))),
+    text_color=FONT_DARK, anchor='center',
+)
 label_percents.place(relx=.668, rely=.005, relwidth=.326, relheight=.07)
 
 # ----------- row 2 -----------------
 
-label_know = ctk.CTkLabel(frame_2, text="Know (LMK, LEFT, 'A')", font=('Calibri', scope_base),
-                          bg_color=GREY_DARK,
-                          text_color=FONT_LIGHT, anchor='center', )
+label_know = ctk.CTkLabel(
+    frame_2, text="Know (LMK, LEFT, 'A')",
+    font=('Calibri', scope_base),
+    bg_color=GREY_DARK,
+    text_color=FONT_LIGHT, anchor='center',
+)
 label_know.place(relx=.005, rely=.082, relwidth=.492, relheight=.06)
 
-label_dont_know = ctk.CTkLabel(frame_2, text="Don't (RMK, RIGHT, 'D')", font=('Calibri', scope_base),
-                               bg_color=GREY_DARK, text_color=FONT_LIGHT, anchor='center', )
+label_dont_know = ctk.CTkLabel(
+    frame_2, text="Don't (RMK, RIGHT, 'D')",
+    font=('Calibri', scope_base),
+    bg_color=GREY_DARK,
+    text_color=FONT_LIGHT,
+    anchor='center',
+)
 label_dont_know.place(relx=.503, rely=.082, relwidth=.492, relheight=.06)
 
 # ----------- row 3 -----------------
 
-label_know_number = ctk.CTkLabel(frame_2, text=str(words_right_intvar.get()),
-                                 font=('Calibri', int(round(scope_base * 1.2))),
-                                 bg_color=GREY,
-                                 text_color=FONT_DARK, anchor='center', )
+label_know_number = ctk.CTkLabel(
+    frame_2, text=str(words_right_intvar.get()),
+    font=('Calibri',
+          int(round(scope_base * 1.2))),
+    bg_color=GREY,
+    text_color=FONT_DARK, anchor='center',
+)
 label_know_number.place(relx=.005, rely=.149, relwidth=.492, relheight=.07)
 
-label_dont_know_number = ctk.CTkLabel(frame_2, text=str(words_wrong_intvar.get()),
-                                      font=('Calibri', int(
-                                          round(scope_base * 1.2))),
-                                      bg_color=GREY,
-                                      text_color=FONT_DARK, anchor='center', )
+label_dont_know_number = ctk.CTkLabel(
+    frame_2,
+    text=str(words_wrong_intvar.get()),
+    font=('Calibri', int(
+        round(scope_base * 1.2))),
+    bg_color=GREY,
+    text_color=FONT_DARK, anchor='center',
+)
 label_dont_know_number.place(
     relx=.503, rely=.149, relwidth=.492, relheight=.07)
 
 # ----------- row 4 -----------------
 
-label_word = ctk.CTkLabel(frame_2, font=('Calibri', int(round(scope_base * 1.8))),
+label_word = ctk.CTkLabel(frame_2,
+                          font=('Calibri', int(round(scope_base * 1.8))),
                           bg_color=BLUE, text_color=FONT_DARK,
                           anchor='center', wraplength=wraplength)
 
@@ -1068,11 +1133,15 @@ label_word.bind("<D>", lambda e: wrong())
 
 # ----------- row 5 -----------------
 
-label_translation = ctk.CTkLabel(frame_2,
-                                 font=('Calibri', int(round(scope_base * 1.6))),
-                                 bg_color=GREY, text_color=GREY_DARK, anchor='center',
-                                 wraplength=wraplength
-                                 )
+label_translation = ctk.CTkLabel(
+    frame_2,
+    font=('Calibri',
+          int(round(scope_base * 1.6))),
+    bg_color=GREY,
+    text_color=GREY_DARK,
+    anchor='center',
+    wraplength=wraplength
+)
 
 label_translation.place(relx=.005, rely=.433, relwidth=.99, relheight=.31)
 
@@ -1085,7 +1154,9 @@ label_translation.bind("<S>", lambda e: check())
 
 # ----------- row 6 -----------------
 
-label_transcription = ctk.CTkLabel(frame_2, font=('Calibri', int(round(scope_base * 1.6))),
+label_transcription = ctk.CTkLabel(frame_2,
+                                   font=('Calibri',
+                                         int(round(scope_base * 1.6))),
                                    bg_color=GREY_DARK,
                                    text_color=FONT_LIGHT, anchor='center',
                                    wraplength=wraplength)
@@ -1109,10 +1180,14 @@ frame_3_obvious = SlidePanel()
 
 # ----------- layout Top Bar -----------------
 
-label_result_obvious = ctk.CTkLabel(frame_3_obvious,
-                                    font=('Calibri', int(
-                                        round(scope_base * 1.33)), 'bold'),
-                                    anchor='center', text_color=FONT_LIGHT, bg_color=GREY_DARK, )
+label_result_obvious = ctk.CTkLabel(
+    frame_3_obvious,
+    font=('Calibri', int(
+        round(scope_base * 1.33)), 'bold'),
+    anchor='center',
+    text_color=FONT_LIGHT,
+    bg_color=GREY_DARK,
+)
 label_result_obvious.place(relx=.005, rely=.005, relheight=.175, relwidth=.99)
 
 # ----------- layout Middle Bar -----------------
@@ -1121,28 +1196,33 @@ canvas_middle_bar_obvious = ctk.CTkCanvas(frame_3_obvious, bg=GREY_LIGHT, )
 canvas_middle_bar_obvious.place(
     relx=.005, rely=.188, relheight=.555, relwidth=.99)
 
-label_result_info_obvious = ctk.CTkLabel(canvas_middle_bar_obvious,
-                                         font=(
-                                             'Calibri', scope_base * 2, 'bold'),
-                                         anchor='center', text_color=FONT_BROWN,
-                                         bg_color=GREY_LIGHT)
+label_result_info_obvious = ctk.CTkLabel(
+    canvas_middle_bar_obvious,
+    font=(
+        'Calibri', scope_base * 2, 'bold'),
+    anchor='center', text_color=FONT_BROWN,
+    bg_color=GREY_LIGHT
+)
 
-label_result_info_plus_obvious = ctk.CTkLabel(canvas_middle_bar_obvious,
-                                              font=('Calibri', int(
-                                                  round(scope_base * 1.2)),),
-                                              anchor='center', text_color=FONT_BROWN,
-                                              bg_color=GREY_LIGHT, wraplength=wraplength)
+label_result_info_plus_obvious = ctk.CTkLabel(
+    canvas_middle_bar_obvious,
+    font=('Calibri', int(
+        round(scope_base * 1.2)),),
+    anchor='center', text_color=FONT_BROWN,
+    bg_color=GREY_LIGHT, wraplength=wraplength
+)
 
 # ----------- layout ReSTART Button -----------------
 
-btn_restart_obvious = ctk.CTkButton(frame_3_obvious, text='ReSTART',
-                                    font=('Calibri', scope_base * 2, 'bold'),
-                                    corner_radius=0,
-                                    text_color=FONT_BROWN,
-                                    fg_color=YELLOW_BTN,  # rest / active button's color
-                                    hover_color=YELLOW_BTN_HOVER,  # hover button color
-                                    command=change_3obvious_1
-                                    )
+btn_restart_obvious = ctk.CTkButton(
+    frame_3_obvious, text='ReSTART',
+    font=('Calibri', scope_base * 2, 'bold'),
+    corner_radius=0,
+    text_color=FONT_BROWN,
+    fg_color=YELLOW_BTN,  # rest / active button's color
+    hover_color=YELLOW_BTN_HOVER,  # hover button color
+    command=change_3obvious_1
+)
 
 btn_restart_obvious.bind('<space>', lambda e: change_3obvious_1())
 btn_restart_obvious.place(relx=.005, rely=.75, relheight=.245, relwidth=.99)
@@ -1156,9 +1236,11 @@ frame_3_win = SlidePanel()
 
 # ----------- layout Top Bar -----------------
 
-label_result_win = ctk.CTkLabel(frame_3_win, font=('Calibri', int(round(scope_base * 1.33)), 'bold'),
-                                anchor='center', text_color=FONT_BROWN, width=392, height=60,
-                                bg_color=GREY_LIGHT)
+label_result_win = ctk.CTkLabel(
+    frame_3_win, font=('Calibri', int(round(scope_base * 1.33)), 'bold'),
+    anchor='center', text_color=FONT_BROWN, width=392, height=60,
+    bg_color=GREY_LIGHT
+)
 label_result_win.place(relx=.005, rely=.005, relheight=.175, relwidth=.99)
 
 # ----------- layout Middle Bar -----------------
@@ -1166,20 +1248,23 @@ label_result_win.place(relx=.005, rely=.005, relheight=.175, relwidth=.99)
 canvas_middle_bar_win = ctk.CTkCanvas(frame_3_win, bg=GREEN, height=288, )
 canvas_middle_bar_win.place(relx=.005, rely=.188, relheight=.555, relwidth=.99)
 
-label_result_info_win = ctk.CTkLabel(canvas_middle_bar_win, font=('Calibri', scope_base * 4, 'bold'),
-                                     text='Success!', anchor='center', text_color=FONT_LIGHT, )
+label_result_info_win = ctk.CTkLabel(
+    canvas_middle_bar_win, font=('Calibri', scope_base * 4, 'bold'),
+    text='Success!', anchor='center', text_color=FONT_LIGHT,
+)
 
 label_result_info_win.place(relx=0.5, rely=0.5, anchor='c')
 
 # ----------- layout ReSTART Button -----------------
 
-btn_restart_win = ctk.CTkButton(frame_3_win, text='ReSTART', font=('Calibri', scope_base * 2, 'bold'),
-                                corner_radius=0,
-                                height=80, text_color=FONT_BROWN,
-                                fg_color=YELLOW_BTN,  # rest / active button's color
-                                hover_color=YELLOW_BTN_HOVER,  # hover button color
-                                command=change_3win_1
-                                )
+btn_restart_win = ctk.CTkButton(
+    frame_3_win, text='ReSTART', font=('Calibri', scope_base * 2, 'bold'),
+    corner_radius=0,
+    height=80, text_color=FONT_BROWN,
+    fg_color=YELLOW_BTN,  # rest / active button's color
+    hover_color=YELLOW_BTN_HOVER,  # hover button color
+    command=change_3win_1
+)
 btn_restart_win.bind('<space>', lambda e: change_3win_1())
 btn_restart_win.place(relx=.005, rely=.75, relheight=.245, relwidth=.99)
 
