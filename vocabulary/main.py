@@ -158,7 +158,8 @@ def memory_file_import() -> dict:
         text = file.readlines()
     data = {}
     for line in text:
-        # List unpack from string, separated from '\n' and split by '='; [k, val]:
+        # List unpack from string, separated from '\n'
+        # and split by '='; [k, val]:
         k, val = line.strip().split('=')
         if val.isnumeric():  # 'int' -> int. NB: float stays str
             val = int(val)
@@ -177,12 +178,15 @@ def create_files_xlsx_list() -> list:
             # filling list with files .xlsx names from path_to_xlsx
             files_xlsx_list_local.append(file.name)
 
-    # Search for .xlsx files in Mistakes directory
-    for file in path_to_xlsx_mistakes.iterdir():
-        match_xlsx_files = re.search('.xlsx', file.name)
-        if match_xlsx_files:
-            # filling list with files .xlsx names from path_to_xlsx
-            files_xlsx_list_local.append(file.name)
+    if path_to_xlsx_mistakes.exists():
+        # Search for .xlsx files in Mistakes directory
+        for file in path_to_xlsx_mistakes.iterdir():
+            match_xlsx_files = re.search('.xlsx', file.name)
+            if match_xlsx_files:
+                # filling list with files .xlsx names from path_to_xlsx
+                files_xlsx_list_local.append(file.name)
+    else:
+        path_to_xlsx_mistakes.mkdir(exist_ok=True)
 
     # Filter list from hidden and temporary files:
     files_xlsx_list_local = [
@@ -200,7 +204,8 @@ def assert_file_xlsx_read():
     match = re.search('MSTK', file_name_strvar.get())
     if match:
         file_xlsx_read = xl.load_workbook(
-            f"{str(path_to_xlsx_mistakes.absolute())}/{file_name_strvar.get()}")
+            f"{str(path_to_xlsx_mistakes.absolute())}/{file_name_strvar.get()}"
+        )
         mistakes_file_chosen_boolvar.set(True)
     else:
         file_xlsx_read = xl.load_workbook(
@@ -236,7 +241,8 @@ def start_end_combos_fill():
     Create start_end_list.
     Pass it to START/END comboboxes.
     """
-    global start_end_list, sheet, files_xlsx_list
+    global start_end_list
+    # global files_xlsx_list, sheet
     start_end_list = []
 
     # Filling start_end_list:
@@ -249,7 +255,8 @@ def start_end_combos_fill():
         if sheet.cell(column=1, row=row).value not in exceptions:
             list_all_rows.append(row)
 
-    # If dictionary file is empty: user should fill comboboxes again, beginning with combo_file:
+    # If dictionary file is empty: user should fill comboboxes again,
+    # beginning with combo_file:
     if len(list_all_rows) == 0:
         combos_clear()
         btn_start_deactivate()
@@ -401,9 +408,13 @@ def check():
     """
     label_translation.configure(text_color=FONT_DARK)
     label_translation.configure(
-        text=str(sheet.cell(column=3, row=rows_mixed_list[words_done_qty_intvar.get()]).value).strip())
+        text=str(sheet.cell(
+            column=3,
+            row=rows_mixed_list[words_done_qty_intvar.get()]).value).strip())
     label_transcription.configure(
-        text=str(sheet.cell(column=2, row=rows_mixed_list[words_done_qty_intvar.get()]).value).strip())
+        text=str(sheet.cell(
+            column=2,
+            row=rows_mixed_list[words_done_qty_intvar.get()]).value).strip())
     label_word.focus_set()  # focus for keyboard control
     check_mode_boolvar.set(False)
 
@@ -415,7 +426,8 @@ def record_xlsx():
     if not path_to_xlsx_mistakes.exists():
         path_to_xlsx_mistakes.mkdir()
 
-    shutil.copyfile(Path('template.xlsx'), Path(path_to_xlsx_mistakes) /
+    shutil.copyfile(Path(path_to_xlsx) / ('template.xlsx'),
+                    Path(path_to_xlsx_mistakes) /
                     mistakes_xlsx_name_strvar.get())
     workbook_mistakes = xl.load_workbook(Path(path_to_xlsx_mistakes) /
                                          mistakes_xlsx_name_strvar.get())
@@ -439,7 +451,8 @@ def record_xlsx():
 
 def change_2_win():
     label_result_win.configure(
-        text=f"RESULT: {round((words_right_intvar.get() / words_qty_intvar.get()) * 100)} %")
+        text=f"RESULT: {round(
+            (words_right_intvar.get() / words_qty_intvar.get()) * 100)} %")
     frame_2.place_forget()
     frame_3_win.anime()
     btn_restart_win.focus_set()
@@ -447,9 +460,11 @@ def change_2_win():
 
 def change_2_obvious_no_record():
     label_result_obvious.configure(
-        text=f"RESULT: {round((words_right_intvar.get() / words_qty_intvar.get()) * 100)} %")
+        text=f"RESULT: {round(
+            (words_right_intvar.get() / words_qty_intvar.get()) * 100)} %")
     label_result_info_obvious.configure(
-        text=f"The rest of words:\n{words_wrong_intvar.get()} out of {words_qty_intvar.get()}")
+        text=f"The rest of words:"
+        f"\n{words_wrong_intvar.get()} out of {words_qty_intvar.get()}")
     label_result_info_obvious.place(relx=0.5, rely=0.5, anchor='c')
     frame_2.place_forget()
     btn_restart_obvious.focus_set()
@@ -459,9 +474,11 @@ def change_2_obvious_no_record():
 def change_2_obvious_record():
     record_xlsx()
     label_result_obvious.configure(
-        text=f"RESULT: {round((words_right_intvar.get() / words_qty_intvar.get()) * 100)} %")
+        text=f"RESULT: {round(
+            (words_right_intvar.get() / words_qty_intvar.get()) * 100)} %")
     label_result_info_obvious.configure(
-        text=f"The rest of words:\n{words_wrong_intvar.get()} out of {words_qty_intvar.get()}")
+        text=f"The rest of words:"
+        f"\n{words_wrong_intvar.get()} out of {words_qty_intvar.get()}")
     label_result_info_plus_obvious.configure(
         text=f"Saved: {mistakes_xlsx_name_strvar.get()}")
     label_result_info_obvious.place(relx=0.5, rely=0.4, anchor='c')
@@ -498,20 +515,23 @@ def right():
 
 
 def wrong():
+
     # global mistakes_list
     if check_mode_boolvar.get():
         check()
     else:
         words_wrong_intvar.set(words_wrong_intvar.get() + 1)
         label_dont_know_number.configure(text=str(words_wrong_intvar.get()))
-        # saving mistakes to list (always happens, regardless record_boolvar.get())
+        # saving mistakes to list
+        # (always happens, regardless record_boolvar.get())
         mistakes_list.append(rows_mixed_list[words_done_qty_intvar.get()])
         check_mode_boolvar.set(True)
         analyse()
 
 
 def defaults():
-    global sheets_list, start_end_list, rows_mixed_list, mistakes_list, files_xlsx_list
+    global sheets_list, start_end_list, rows_mixed_list
+    global mistakes_list, files_xlsx_list
 
     # directory variables
     memory_file_boolvar.set(False)  # memory_file in cwd
@@ -583,13 +603,16 @@ def switch_record_boolvar():
 
 def another_word():
     label_word.configure(
-        text=str(sheet.cell(column=1, row=rows_mixed_list[words_done_qty_intvar.get()]).value).strip())
+        text=str(sheet.cell(
+            column=1, row=rows_mixed_list
+            [words_done_qty_intvar.get()]).value).strip())
     progress_bar.set(words_done_qty_intvar.get() / words_qty_intvar.get())
     percent_intvar.set(
         round((words_done_qty_intvar.get() / words_qty_intvar.get()) * 100))
     label_percents.configure(text=f"{percent_intvar.get()} %")
     label_words_qty.configure(
-        text=f"{words_done_qty_intvar.get() + 1} out of {words_qty_intvar.get()}")
+        text=f"{words_done_qty_intvar.get() + 1} out of "
+             f"{words_qty_intvar.get()}")
     label_translation.configure(
         text='--->> check (click, DOWN, \'S\') <<---', text_color=GREY_DARK)
     label_transcription.configure(text='')
@@ -597,7 +620,8 @@ def another_word():
 
 
 def start_exam():
-    global sheet, rows_mixed_list
+    global rows_mixed_list
+    # global sheet
     memory_file_write()
     #  creation of mistakes_xlsx_name_strvar:
     match = re.search('MSTK', file_name_strvar.get())  # finding mistakes files
@@ -758,7 +782,8 @@ frame_path = ctk.CTkFrame(canvas_file,
                           )
 frame_path.place(relx=.05, rely=.08, relwidth=.9, relheight=.24)
 
-label_path = ctk.CTkLabel(frame_path, text="Path to your file's folder:", font=('Calibri', scope_base),
+label_path = ctk.CTkLabel(frame_path, text="Path to your file's folder:",
+                          font=('Calibri', scope_base),
                           fg_color=GREY,
                           text_color=FONT_BROWN,
                           )
