@@ -874,7 +874,10 @@ entry_path = ctk.CTkEntry(
     font=('Calibri', int(round(scope_base * .8))),
     border_color=GREY,
     justify='c',
-    textvariable=path_strvar
+    textvariable=path_strvar,
+    # colors:
+    fg_color="white",
+    text_color="black",
 )
 entry_path.place(relx=.02, rely=.53, relwidth=.96, relheight=.4)
 
@@ -906,6 +909,12 @@ combo_file = ctk.CTkComboBox(
     justify='c',
     values=create_files_xlsx_list(),
     command=combo_file_choice,
+    # colors:
+    fg_color="white",
+    text_color="black",
+    dropdown_fg_color="white",
+    dropdown_text_color="black",
+    dropdown_hover_color="lightgray"
 )
 
 combo_file.set(file_name_strvar.get())
@@ -937,7 +946,13 @@ combo_sheet = ctk.CTkComboBox(
     border_color=GREY,
     justify='c',
     values=sheets_list,
-    command=combo_sheet_choice
+    command=combo_sheet_choice,
+    # colors:
+    fg_color="white",
+    text_color="black",
+    dropdown_fg_color="white",
+    dropdown_text_color="black",
+    dropdown_hover_color="lightgray"
 )
 
 combo_sheet.set(sheet_name_strvar.get())
@@ -978,7 +993,13 @@ combo_start = ctk.CTkComboBox(
     justify='c',
     command=combo_start_choice,
     # not to view default logo, when the file_name_strvar.get() == '':
-    values=[]
+    values=[],
+    # colors:
+    fg_color="white",
+    text_color="black",
+    dropdown_fg_color="white",
+    dropdown_text_color="black",
+    dropdown_hover_color="lightgray"
 )
 
 combo_start.set('')  # empty field, when the file_name_strvar.get() == ''
@@ -1010,9 +1031,14 @@ combo_end = ctk.CTkComboBox(
     border_color=GREY,
     justify='c',
     command=combo_end_choice,
-    # not to view default logo,
-    # when the file_name_strvar.get() == '':
-    values=[]
+    # not to view default logo, when the file_name_strvar.get() == '':
+    values=[],
+    # colors:
+    fg_color="white",
+    text_color="black",
+    dropdown_fg_color="white",
+    dropdown_text_color="black",
+    dropdown_hover_color="lightgray"
 )
 
 combo_end.set('')  # empty field, when the file_name_strvar.get() == ''
@@ -1087,7 +1113,13 @@ combo_step = ctk.CTkComboBox(
     justify='c',
     command=combo_step_choice,
     values=['20', '60', '100', '200', '300',
-            '400', '600', '800', '1000', '2000']
+            '400', '600', '800', '1000', '2000'],
+    # colors:
+    fg_color="white",
+    text_color="black",
+    dropdown_fg_color="white",
+    dropdown_text_color="black",
+    dropdown_hover_color="lightgray"
 )
 
 combo_step.set('200')
