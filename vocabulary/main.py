@@ -9,8 +9,6 @@ import tkinter
 import customtkinter as ctk
 import openpyxl as xl
 
-# TODO: memory.txt delete bug
-
 # ---------- customtkinter init -----------------
 
 root = ctk.CTk()
@@ -21,10 +19,15 @@ root = ctk.CTk()
 path_strvar = ctk.StringVar(value='')
 path_to_xlsx = Path()
 path_to_xlsx_mistakes = Path()
+project_dir = Path(__file__).parent.resolve()
 
 # memory_file
-memory_file_name = 'memory.txt'
-memory_file_boolvar = ctk.BooleanVar(value=False)  # is there memory.txt in cwd
+
+# memory_file_name = 'memory.txt'
+path_to_memory_txt = project_dir / 'memory.txt'
+
+# is there valid memory.txt in project_dir:
+memory_file_boolvar = ctk.BooleanVar(value=False)
 
 # working with {mistakes}.xlsx:
 record_boolvar = ctk.BooleanVar(value=False)
@@ -88,7 +91,7 @@ def start_program():
     memory_file_boolvar_analyse()
     if memory_file_boolvar.get():
         memory_setting()
-    # If memory_file missed, default stays: ''.
+    # If memory_file missed, default stays: ''
     frame_1.anime()
 
 
@@ -97,8 +100,53 @@ def memory_file_boolvar_analyse():
     Search for memory_file in cwd.
     Change memory_file_boolvar respectively.
     """
-    if Path(memory_file_name).exists():
-        memory_file_boolvar.set(True)
+    REQUIRED_LINES = 6
+    non_empty_lines = 0
+
+    if not path_to_memory_txt.exists():
+        return
+
+    path_strvar = None
+
+    try:
+        with open(path_to_memory_txt) as file:
+            for line in file:
+                if line.strip():
+                    non_empty_lines += 1
+                if line.startswith("file_name_strvar="):
+                    file_name_strvar = line.split(
+                        "file_name_strvar=")[1].strip()
+                if line.startswith("sheet_name_strvar="):
+                    sheet_name_strvar = line.split(
+                        "sheet_name_strvar=")[1].strip()
+                if line.startswith("start_intvar="):
+                    start_intvar = line.split("start_intvar=")[1].strip()
+                if line.startswith("end_intvar="):
+                    end_intvar = line.split("end_intvar=")[1].strip()
+                if line.startswith("path_strvar="):
+                    path_strvar = line.split("path_strvar=")[1].strip()
+                if line.startswith("step_intvar="):
+                    step_intvar = line.split("step_intvar=")[1].strip()
+    except Exception as e:
+        print(f"memory.txt read error: {e}")
+
+    path_to_xlsx = Path(path_strvar) / file_name_strvar
+
+    if not (
+        non_empty_lines == REQUIRED_LINES and
+        path_to_xlsx.exists() and
+        start_intvar.isdigit() and
+        end_intvar.isdigit() and
+        step_intvar.isdigit()
+    ):
+        return
+
+    workbook = xl.load_workbook(path_to_xlsx)
+
+    if sheet_name_strvar not in workbook.sheetnames:
+        return
+
+    memory_file_boolvar.set(True)
 
 
 def memory_setting():
@@ -153,7 +201,7 @@ def memory_file_import() -> dict:
     """
     Return dict with memory settings from the last using of the program.
     """
-    with open(memory_file_name) as file:
+    with open(path_to_memory_txt) as file:
         # list of rows (local)
         text = file.readlines()
     data = {}
@@ -585,7 +633,7 @@ def memory_file_write():
     memory_data['end_intvar'] = end_intvar.get()
     memory_data['path_strvar'] = path_strvar.get()
     memory_data['step_intvar'] = step_intvar.get()
-    with open(memory_file_name, 'w') as file:
+    with open(path_to_memory_txt, 'w') as file:
         for k, val in memory_data.items():
             file.write(f"{k}={val}\n")
 
