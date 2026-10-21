@@ -24,7 +24,7 @@
 ### Requirements:
 
 - Python >= 3.10
-- [Poetry](https://python-poetry.org/)
+- [uv](https://docs.astral.sh/uv/)
 - Tkinter (pre-installed on Windows/macOS; requires manual installation on Linux)
 
 **Linux Installation:**
@@ -55,7 +55,7 @@ sudo apt install python3-tk
 
 4. Set up the environment:
     ```bash
-    poetry install
+    uv sync
     ```
 
 ## Usage
@@ -67,5 +67,5 @@ sudo apt install python3-tk
 
 2. Launch the application:
     ```bash
-    poetry run python main.py
+    uv run python main.py
     ```
